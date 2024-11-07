@@ -1,0 +1,23 @@
+2024-10-25 23:18:37,902 [ERROR] [restartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter]:[40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.output.ansi.enabled' to org.springframework.boot.ansi.AnsiOutput$Enabled:
+
+    Property: spring.output.ansi.enabled
+    Value: "%clr(%5p)"
+    Origin: class path resource [application.properties] - 13:28
+    Reason: failed to convert java.lang.String to org.springframework.boot.ansi.AnsiOutput$Enabled (caused by java.lang.IllegalArgumentException: No enum constant org.springframework.boot.ansi.AnsiOutput.Enabled.%clr(%5p))
+
+Action:
+
+Update your application's configuration. The following values are valid:
+
+    ALWAYS
+    DETECT
+    NEVER
+
