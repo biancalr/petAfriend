@@ -67,8 +67,8 @@ public class ClientController {
     })
     @GetMapping(path = "/get")
     public ResponseEntity<ClientDTO> get(
-            @Parameter(description = "The id to search") @RequestParam(required = false) final Long id) throws ClientException {
-        log.info("listing pet with id {}", id);
+            @Parameter(description = "The id to search") @RequestParam final Long id) throws ClientException {
+        log.info("listing client with id {}", id);
         return ResponseEntity.ok(service.get(id));
     }
 
