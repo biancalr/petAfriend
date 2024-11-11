@@ -72,8 +72,13 @@ public class RentController {
     })
     @PostMapping("/cancel")
     public ResponseEntity<RegisteredDTO> cancel(
-            @Parameter(description = "The id of certain rent", example = "1")
-            @RequestParam final Long idRent) throws RentException {
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Id of a rent",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Integer.class)
+                    ),}
+            )
+            @RequestBody final Long idRent) throws RentException {
         log.info("Canceling request of rent id {}", idRent);
         return ResponseEntity.status(HttpStatus.OK).body(service.cancel(idRent));
     }
