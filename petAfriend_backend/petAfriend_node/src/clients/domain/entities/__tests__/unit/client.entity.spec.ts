@@ -1,16 +1,12 @@
-import { faker } from "@faker-js/faker";
 import { ClientEntity, ClientProps } from "../../client.entity";
+import { ClientDataBuilder } from "@/clients/domain/testing/helpers/client-data-builder";
 
 describe("ClientEntity", () => {
   let props: ClientProps;
   let sut: ClientEntity;
 
   beforeEach(() => {
-    props = {
-      username: faker.internet.username(),
-      email: faker.internet.email(),
-    };
-
+    props = ClientDataBuilder({});
     sut = new ClientEntity(props);
   });
   it("Constructor method", () => {
