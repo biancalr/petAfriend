@@ -15,8 +15,16 @@ export class ClientEntity extends Entity<ClientProps> {
     this.props.createdAt = this.props.createdAt ?? new Date();
   }
 
+  update(value: string): void {
+    this.username = value;
+  }
+
   get username() {
     return this.props.username;
+  }
+
+  private set username(value: string) {
+    this.props.username = value;
   }
 
   get email() {
