@@ -1,4 +1,4 @@
-package com.pets.petAfriend.features.pet.configs.migrations.flywaycallbacks;
+package com.pets.petAfriend.configs.migrations.flywaycallbacks;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

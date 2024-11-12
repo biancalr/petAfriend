@@ -1,4 +1,4 @@
-package com.pets.petAfriend.features.pet.configs.migrations;
+package com.pets.petAfriend.configs.migrations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

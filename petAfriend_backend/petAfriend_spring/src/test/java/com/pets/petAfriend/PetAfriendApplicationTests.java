@@ -1,4 +1,4 @@
-package com.pets.petAfriend.features.pet;
+package com.pets.petAfriend;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

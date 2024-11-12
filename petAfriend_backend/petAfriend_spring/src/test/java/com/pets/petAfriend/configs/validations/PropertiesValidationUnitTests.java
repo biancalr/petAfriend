@@ -1,6 +1,6 @@
-package com.pets.petAfriend.features.pet.configs.validations;
+package com.pets.petAfriend.configs.validations;
 
-import com.pets.petAfriend.features.pet.configs.migrations.FlywayCallbackTestConfig;
+import com.pets.petAfriend.configs.migrations.FlywayCallbackTestConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
