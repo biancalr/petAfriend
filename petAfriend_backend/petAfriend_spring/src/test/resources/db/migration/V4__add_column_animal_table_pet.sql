@@ -1,0 +1,1 @@
+ALTER TABLE pet ADD TYPE varchar(30) NOT NULL;
