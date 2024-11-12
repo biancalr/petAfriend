@@ -5,6 +5,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 *.env
+*.test.env
 /dist
 /node_modules
 /build

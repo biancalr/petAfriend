@@ -1,4 +1,4 @@
-package com.pets.petAfriend.features.pet.configs.migrations.flywaycallbacks;
+package com.pets.petAfriend.features.pet.configs.migrations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

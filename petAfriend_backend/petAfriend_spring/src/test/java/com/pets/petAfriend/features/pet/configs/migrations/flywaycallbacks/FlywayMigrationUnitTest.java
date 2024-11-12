@@ -1,6 +1,6 @@
 package com.pets.petAfriend.features.pet.configs.migrations.flywaycallbacks;
 
-import lombok.RequiredArgsConstructor;
+import com.pets.petAfriend.features.pet.configs.migrations.FlywayCallbackTestConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.test.FlywayTestExecutionListener;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
