@@ -21,11 +21,11 @@ public class RegisterPetDTO {
     @NotBlank(message = "validation.pet.typeNotBlank")
     @Size(min = 1, max = 30, message = "limite [1:30]")
     @Parameter(description = "the specie of your pet", example = "dog")
-    private String type;
+    private String specie;
     @NotBlank(message = "validation.pet.specieNotBlank")
     @Size(min = 1, max = 100, message = "limite [1:100]")
     @Parameter(description = "the breed of your pet", example = "Golden Retriever")
-    private String specie;
+    private String breed;
     @Size(min = 1, max = 5000, message = "limite [1:5000]")
     @NotBlank(message = "validation.pet.personalityNotBlank")
     @Parameter(description = "describe the pet personality")

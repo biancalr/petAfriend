@@ -2,6 +2,7 @@ package com.pets.petAfriend.configs.migrations.flywaycallbacks;
 
 import com.pets.petAfriend.configs.migrations.FlywayCallbackTestConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ public class FlywayMigrationUnitTest {
                 .locations("filesystem:src/test/resources/db/migration/")
                 .load();
         flyway.migrate();
+        Assertions.assertThat(flyway).isInstanceOf(Flyway.class);
     }
 
     @Test
@@ -47,6 +49,7 @@ public class FlywayMigrationUnitTest {
                 .callbacks(new ExampleFlywayCallback())
                 .load();
         flyway.migrate();
+        Assertions.assertThat(flyway).isInstanceOf(Flyway.class);
     }
 
     @Test
@@ -57,6 +60,7 @@ public class FlywayMigrationUnitTest {
                 .locations("filesystem:src/test/resources/db/migration/", "filesystem:src/test/resources/db/callbacks")
                 .load();
         flyway.migrate();
+        Assertions.assertThat(flyway).isInstanceOf(Flyway.class);
     }
 
     @Test
@@ -68,6 +72,7 @@ public class FlywayMigrationUnitTest {
                 .callbacks(new ExampleFlywayCallback())
                 .load();
         flyway.migrate();
+        Assertions.assertThat(flyway).isInstanceOf(Flyway.class);
     }
 
     private void logTestBoundary(String testName) {

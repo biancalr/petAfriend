@@ -58,7 +58,7 @@ public class PetService {
      */
     public PetDTO get(final Long id) throws PetException {
         if (!repository.existsById(id)){
-            throw new PetException("Id does not exist");
+            throw new PetException("Pet does not exist");
         }
         return repository.findById(id).map(this::toDTO).orElseThrow(()-> new PetException("Object not found"));
     }
@@ -66,8 +66,8 @@ public class PetService {
     private Pet fromDTO(final RegisterPetDTO registerPetDTO) {
         final Pet pet = new Pet();
         pet.setName(registerPetDTO.getName().toUpperCase());
-        pet.setBreed(registerPetDTO.getSpecie().toUpperCase());
-        pet.setSpecie(registerPetDTO.getType().toUpperCase());
+        pet.setBreed(registerPetDTO.getBreed().toUpperCase());
+        pet.setSpecie(registerPetDTO.getSpecie().toUpperCase());
         pet.setPersonality(registerPetDTO.getPersonality().toUpperCase());
         return pet;
     }
