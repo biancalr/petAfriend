@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class RegisterClientDTO {
 
     @NotBlank(message = "validation.client.usernameNotBlank")
-    @Size(min = 1, max = 20, message = "limite [1:20]")
+    @Size(min = 1, max = 20, message = "limit [1:20]")
     private String username;
     @NotBlank(message = "validation.client.emailNotBlank")
-    @Size(min = 1, max = 50, message = "limite [1:50]")
+    @Size(min = 1, max = 50, message = "limit [1:50]")
     @Email(message = "validation.client.mailNotValid")
     private String email;
 

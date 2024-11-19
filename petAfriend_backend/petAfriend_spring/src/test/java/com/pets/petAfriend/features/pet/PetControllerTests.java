@@ -1,6 +1,7 @@
 package com.pets.petAfriend.features.pet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import com.pets.petAfriend.configs.migrations.FlywayCallbackTestConfig;
 import com.pets.petAfriend.features.pet.dto.PetDTO;
 import com.pets.petAfriend.features.pet.dto.RegisterPetDTO;
@@ -29,7 +30,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,12 +49,10 @@ public class PetControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private final Date now = new Date();
-
     private final String PET_API = "/api/pets";
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         assertThat(controller).isNotNull();
     }
 
@@ -126,6 +124,7 @@ public class PetControllerTests {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request).andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.content", Matchers.hasSize(1)))
                 .andExpect(jsonPath("$.pageable.pageSize").value(10))
                 .andExpect(jsonPath("$.pageable.pageNumber").value(0))
@@ -158,6 +157,7 @@ public class PetControllerTests {
                 ;
 
         mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.id").value(id))
@@ -179,13 +179,14 @@ public class PetControllerTests {
                 ;
 
         mockMvc.perform(request).andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(result -> Assertions.assertInstanceOf(MethodArgumentNotValidException.class, result.getResolvedException()));
 
     }
 
     private PetDTO getDetailedPet() {
         final PetDTO petDto = new PetDTO();
-        petDto.setName("Catty");
+        petDto.setName(Faker.instance().animal().name());
         petDto.setBreed("Scottish Fold");
         petDto.setPersonality("quiet");
         petDto.setSpecie("cat");
@@ -194,7 +195,7 @@ public class PetControllerTests {
 
     private RegisterPetDTO createNewPet() {
         final RegisterPetDTO pet = new RegisterPetDTO();
-        pet.setName("Doggy");
+        pet.setName(Faker.instance().animal().name());
         pet.setSpecie("dog");
         pet.setBreed("Shitzu");
         pet.setPersonality("bright");
