@@ -151,7 +151,7 @@ public class PetServiceTests {
         // execução
         final Throwable exception = Assertions.catchException(() -> service.save(petDTO));
 
-        //
+        // verificação
         assertThat(exception)
                 .isInstanceOf(PetException.class)
         ;

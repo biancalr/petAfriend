@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = FlywayCallbackTestConfig.class)
 @AutoConfigureMockMvc
 @WebMvcTest(PetController.class)
-public class PetControllerUnitTests {
+public class PetControllerTests {
 
     @MockBean
     private PetController controller;
