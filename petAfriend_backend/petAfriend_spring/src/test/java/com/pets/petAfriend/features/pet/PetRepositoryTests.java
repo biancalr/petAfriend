@@ -54,7 +54,6 @@ public class PetRepositoryTests {
         final Pet pet = createNewPet();
         final Long id = 1L;
 
-        pet.setCreatedAt(now);
         repository.saveAndFlush(pet);
 
         // execução
@@ -66,7 +65,7 @@ public class PetRepositoryTests {
     }
 
     @Test
-    @DisplayName("Deve retornar verdadeiro quando existir um pet na base com o id informado")
+    @DisplayName("Deve retornar false quando existir um pet na base com o id informado")
     public void returnFalseWhenPetDoesNotExists() {
 
         // cenário
