@@ -1,6 +1,5 @@
 package com.pets.petAfriend.features.pet;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pets.petAfriend.configs.migrations.FlywayCallbackTestConfig;
 import com.pets.petAfriend.features.pet.dto.PetDTO;
@@ -55,7 +54,7 @@ public class PetControllerUnitTests {
     private final String PET_API = "/api/pets";
 
     @Test
-    void contextLoads() throws Exception {
+    void contextLoads() {
         assertThat(controller).isNotNull();
     }
 
