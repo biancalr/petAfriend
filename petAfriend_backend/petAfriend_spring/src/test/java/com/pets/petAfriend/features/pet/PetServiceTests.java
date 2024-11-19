@@ -50,7 +50,7 @@ public class PetServiceTests {
         Mockito.when(service.get(id)).thenReturn(pet);
 
         // execução
-        final PetDTO foundPet = service.get(id);
+        final var foundPet = service.get(id);
 
         // verificação
         assertThat(foundPet.getId()).isEqualTo(id);

@@ -47,7 +47,7 @@ public class ClientService {
             errors.add("Client email is blank");
         }
 
-        if (validateMailRegex(clientDto.getEmail())) {
+        if (StringUtils.isNotBlank(clientDto.getEmail()) && validateMailRegex(clientDto.getEmail())) {
             errors.add("Client email is not valid");
         }
 
