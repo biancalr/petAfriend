@@ -53,7 +53,7 @@ public class PetController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = RegisterPetDTO.class),
                             examples = @ExampleObject(value = ApiExamples.PET_REQUEST_REGISTER_DTO_SUCCESS)))
-            @RequestBody @Valid final RegisterPetDTO petDTO) {
+            @RequestBody @Valid final RegisterPetDTO petDTO) throws PetException {
         log.info("Register the pet {}", petDTO.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(petDTO));
     }

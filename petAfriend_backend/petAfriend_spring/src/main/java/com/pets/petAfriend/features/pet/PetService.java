@@ -10,8 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +20,11 @@ public class PetService {
     private final PetRepository repository;
 
     /**
-     *
      * @param registerPetDTO
      * @return
      */
-    public RegisteredDTO save(final RegisterPetDTO registerPetDTO) {
+    public RegisteredDTO save(final RegisterPetDTO registerPetDTO) throws PetException {
+        validateInput(registerPetDTO);
         final var pet = fromDTO(registerPetDTO);
         pet.setStatus(PetAvailability.AVAILABLE.getAvail());
         pet.setCreatedAt(new Date());
@@ -32,8 +32,65 @@ public class PetService {
         return new RegisteredDTO(saved.getId(), 201, "success", "Pet");
     }
 
+    private void validateInput(final RegisterPetDTO registerPetDTO) throws PetException {
+
+        List<String> errors = new ArrayList<>();
+
+        if (StringUtils.isBlank(registerPetDTO.getName())) {
+            errors.add("Pet name is blank");
+        }
+
+        if (StringUtils.isNotBlank(registerPetDTO.getName()) && registerPetDTO.getName().length() < 3) {
+            errors.add("Pet name is too shot: limit [3:30]");
+        }
+
+        if (StringUtils.isNotBlank(registerPetDTO.getName()) && registerPetDTO.getName().length() > 30) {
+            errors.add("Pet name is too big: limit [3:30]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getSpecie())) {
+            errors.add("Pet specie is blank");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getSpecie()) && registerPetDTO.getSpecie().length() < 3) {
+            errors.add("Pet specie is too short: limit [3:30]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getSpecie()) && registerPetDTO.getSpecie().length() > 30) {
+            errors.add("Pet specie is too big: limit [3:30]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getBreed())) {
+            errors.add("Pet breed is blank");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getBreed()) && registerPetDTO.getBreed().length() < 3) {
+            errors.add("Pet breed is too short: limit [3:100]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getBreed()) && registerPetDTO.getBreed().length() > 100) {
+            errors.add("Pet breed is too big: limit [3:100]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getPersonality())) {
+            errors.add("Pet personality is too big");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getPersonality()) && registerPetDTO.getPersonality().length() < 3) {
+            errors.add("Pet personality is too short: limit [3:5000]");
+        }
+
+        if (StringUtils.isBlank(registerPetDTO.getPersonality()) && registerPetDTO.getPersonality().length() > 100) {
+            errors.add("Pet personality is too big: limit [3:5000]");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new PetException(String.join(";", errors));
+        }
+
+    }
+
     /**
-     *
      * @param status
      * @param specie
      * @param pageable
@@ -52,15 +109,14 @@ public class PetService {
     }
 
     /**
-     *
      * @param id
      * @return
      */
     public PetDTO get(final Long id) throws PetException {
-        if (!repository.existsById(id)){
+        if (!repository.existsById(id)) {
             throw new PetException("Pet does not exist");
         }
-        return repository.findById(id).map(this::toDTO).orElseThrow(()-> new PetException("Object not found"));
+        return repository.findById(id).map(this::toDTO).orElseThrow(() -> new PetException("Object not found"));
     }
 
     private Pet fromDTO(final RegisterPetDTO registerPetDTO) {
