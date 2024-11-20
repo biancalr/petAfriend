@@ -97,7 +97,7 @@ public class PetController {
     })
     @GetMapping(path = "/get")
     public ResponseEntity<PetDTO> get(
-            @Parameter(description = "The id to search") @RequestParam(required = false) final Long id) throws PetException {
+            @Parameter(description = "The id to search") @RequestParam(required = false) final String id) throws PetException {
         log.info("listing pet with id {}", id);
         return ResponseEntity.ok(service.get(id));
     }

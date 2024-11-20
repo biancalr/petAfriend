@@ -67,7 +67,7 @@ public class ClientController {
     })
     @GetMapping(path = "/get")
     public ResponseEntity<ClientDTO> get(
-            @Parameter(description = "The id to search") @RequestParam final Long id) throws ClientException {
+            @Parameter(description = "The id to search") @RequestParam final String id) throws ClientException {
         log.info("listing client with id {}", id);
         return ResponseEntity.ok(service.get(id));
     }

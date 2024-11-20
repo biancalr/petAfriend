@@ -80,7 +80,7 @@ public class RentController {
                             schema = @Schema(implementation = Integer.class)
                     ),}
             )
-            @RequestBody final Long idRent) throws RentException {
+            @RequestBody final String idRent) throws RentException {
         log.info("Canceling request of rent id {}", idRent);
         return ResponseEntity.status(HttpStatus.OK).body(service.cancel(idRent));
     }

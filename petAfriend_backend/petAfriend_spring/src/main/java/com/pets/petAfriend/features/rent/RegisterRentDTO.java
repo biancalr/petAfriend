@@ -16,8 +16,8 @@ public class RegisterRentDTO {
     @Min(value = 1, message = "Minimal time rent is 1")
     @Max(value = 60 * 24 * 30 * 365, message = "Time rent too long")
     private Integer hours;
-    private Long clientId;
-    private Long petId;
+    private String clientId;
+    private String petId;
     private String startsAt;
 
 }

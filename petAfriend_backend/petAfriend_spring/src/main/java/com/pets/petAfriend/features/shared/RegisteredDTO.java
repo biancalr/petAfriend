@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class RegisteredDTO {
 
-    private Long id;
+    private String id;
     private Integer status;
     private String message;
     private String entity;

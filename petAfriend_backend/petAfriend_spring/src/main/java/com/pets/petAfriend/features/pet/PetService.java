@@ -29,7 +29,7 @@ public class PetService {
         pet.setStatus(PetAvailability.AVAILABLE.getAvail());
         pet.setCreatedAt(new Date());
         final var saved = repository.save(pet);
-        return new RegisteredDTO(saved.getId(), 201, "success", "Pet");
+        return new RegisteredDTO(saved.getId().toString(), 201, "success", "Pet");
     }
 
     private void validateInput(final RegisterPetDTO registerPetDTO) throws PetException {
@@ -112,11 +112,18 @@ public class PetService {
      * @param id
      * @return
      */
-    public PetDTO get(final Long id) throws PetException {
-        if (!repository.existsById(id)) {
+    public PetDTO get(final String id) throws PetException {
+        final UUID convertId;
+        try {
+            convertId = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            throw new PetException("Invalid id " + id);
+        }
+
+        if (!repository.existsById(convertId)) {
             throw new PetException("Pet does not exist");
         }
-        return repository.findById(id).map(this::toDTO).orElseThrow(() -> new PetException("Object not found"));
+        return repository.findById(convertId).map(this::toDTO).orElseThrow(() -> new PetException("Object not found"));
     }
 
     private Pet fromDTO(final RegisterPetDTO registerPetDTO) {
@@ -130,7 +137,7 @@ public class PetService {
 
     private PetDTO toDTO(final Pet pet) {
         return PetDTO.builder()
-                .id(pet.getId())
+                .id(pet.getId().toString())
                 .name(pet.getName())
                 .breed(pet.getBreed())
                 .specie(pet.getSpecie())

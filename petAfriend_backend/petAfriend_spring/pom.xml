@@ -159,6 +159,16 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>7.0.0</version>
+                <!--configuration>
+                    <url>${env.url_db}</url>
+                    <user>${env.host_db}</user>
+                    <password>${password_db}</password>
+                </configuration-->
+            </plugin>
         </plugins>
     </build>
 

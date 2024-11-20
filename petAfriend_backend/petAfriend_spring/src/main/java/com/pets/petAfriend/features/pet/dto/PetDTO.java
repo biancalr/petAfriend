@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PetDTO {
 
-    private Long id;
+    private String id;
     private String name;
     private String specie;
     private String breed;

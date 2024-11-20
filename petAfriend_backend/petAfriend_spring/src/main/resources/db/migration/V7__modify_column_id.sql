@@ -1,0 +1,9 @@
+ALTER TABLE pet_a_friend.rent DROP CONSTRAINT FK_USER_RENT;
+ALTER TABLE pet_a_friend.rent DROP CONSTRAINT FK_RENT_PET;
+ALTER TABLE pet_a_friend.pet MODIFY COLUMN ID varchar(36) NOT NULL;
+ALTER TABLE pet_a_friend.client MODIFY COLUMN ID varchar(36) NOT NULL;
+ALTER TABLE pet_a_friend.rent MODIFY COLUMN CLIENT_ID varchar(36) NOT NULL;
+ALTER TABLE pet_a_friend.rent MODIFY COLUMN PET_ID varchar(36) NOT NULL;
+ALTER TABLE pet_a_friend.rent MODIFY COLUMN ID varchar(36) NOT NULL;
+ALTER TABLE pet_a_friend.rent ADD CONSTRAINT FK_USER_RENT FOREIGN KEY (ID) REFERENCES pet_a_friend.client(ID);
+ALTER TABLE pet_a_friend.rent ADD CONSTRAINT FK_RENT_PET FOREIGN KEY (ID) REFERENCES pet_a_friend.pet(ID);

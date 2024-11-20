@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Date;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,11 +41,10 @@ public class ClientRepositoryTests {
 
         // cenário
         final Client client = createNewClient();
-        final Long id = 1L;
-        repository.saveAndFlush(client);
+        final var saved = repository.saveAndFlush(client);
 
         // execução
-        boolean exists = repository.existsById(id);
+        boolean exists = repository.existsById(saved.getId());
 
         // verificação
         assertThat(exists).isTrue();
@@ -55,7 +55,7 @@ public class ClientRepositoryTests {
     public void returnFalseWhenClientDoesNotExists() {
 
         // cenário
-        final Long id = 1L;
+        final UUID id = UUID.randomUUID();
 
         // execução
         boolean exists = repository.existsById(id);

@@ -42,7 +42,7 @@ public class PetServiceTests {
     public void getPetDetails() throws PetException {
 
         // cenário
-        final Long id = 2L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
 
         final PetDTO pet = createDetailedPet();
         pet.setId(id);
@@ -67,7 +67,7 @@ public class PetServiceTests {
     public void getPetDetailsShouldReturnPetExceptionPetNotExist() throws Exception {
 
         // cenário
-        final Long id = 2L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
 
         Mockito.when(service.get(id))
                 .thenThrow(new PetException("Pet does not exist"));
@@ -115,7 +115,7 @@ public class PetServiceTests {
     public void registerPetSuccessfully() throws Exception {
 
         // cenário
-        final Long id = 1L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final RegisterPetDTO petDTO = createNewPet();
         final RegisteredDTO savedPet = RegisteredDTO.builder()
                                                     .id(id)

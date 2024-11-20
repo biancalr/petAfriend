@@ -36,7 +36,7 @@ public class ClientServiceTests {
     public void getClientDetails() throws Exception {
 
         // cenário
-        final Long id = 2L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
 
         final ClientDTO client = createDetailedClient();
         client.setId(id);
@@ -58,7 +58,7 @@ public class ClientServiceTests {
     public void getClientDetailsShouldReturnClientExceptionClientNotExist() throws Exception {
 
         // cenário
-        final Long id = 2L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
 
         Mockito.when(service.get(id)).thenThrow(new ClientException("Client does not exist"));
 
@@ -76,7 +76,7 @@ public class ClientServiceTests {
     public void registerClientSuccessfully() throws Exception {
 
         // cenário
-        final Long id = 1L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final RegisterClientDTO dto = createNewClient();
         final RegisteredDTO saved = RegisteredDTO.builder()
                 .id(id)
@@ -97,7 +97,7 @@ public class ClientServiceTests {
         assertThat(saved.getMessage()).isEqualTo(result.getMessage());
     }
 
-    @DisplayName("Deve laçar erro de validação quando não houver dados suficiente para registrar um pet")
+    @DisplayName("Deve lançar erro de validação quando não houver dados suficiente para registrar um pet")
     @Test
     public void registerInvalidPet() throws Exception {
 

@@ -14,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -50,26 +47,34 @@ public class RentService {
         rent.setStatus(RentStatus.CREATED.getStatus());
         final var saved = repository.saveAndFlush(rent);
         notificationService.sendToQueue(Constants.NOTIFICATION_MAIL, new NotificationDTO(clientService.get(rentDTO.getClientId()).getEmail(), petService.get(rentDTO.getPetId()).getName(), rentDTO.getStartsAt(), rentDTO.getHours(), Constants.CREATED));
-        return new RegisteredDTO(saved.getId(), 201, "success", "Rent");
+        return new RegisteredDTO(saved.getId().toString(), 201, "success", "Rent");
     }
 
     /**
      *
-     * @param idRent
+     * @param id
      * @return
      * @throws RentException
      */
-    public RegisteredDTO cancel(final Long idRent) throws RentException {
-        if (!repository.existsById(idRent)) {
-            throw new RentException("Rent n° " + idRent + " doesn't exist");
+    public RegisteredDTO cancel(final String id) throws RentException {
+        final UUID convertId;
+
+        try {
+            convertId = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            throw new RentException("Invalid Id " + id);
         }
 
-        repository.findById(idRent).ifPresent(r -> {
+        if (!repository.existsById(convertId)) {
+            throw new RentException("Rent n° " + id + " doesn't exist");
+        }
+
+        repository.findById(convertId).ifPresent(r -> {
             r.setStatus(RentStatus.CANCELED.getStatus());
             repository.saveAndFlush(r);
         });
 
-        return new RegisteredDTO(idRent, 200, "canceled", "Rent");
+        return new RegisteredDTO(id, 200, "canceled", "Rent");
     }
 
     /**
@@ -103,10 +108,10 @@ public class RentService {
         repository.saveAndFlush(rent);
     }
 
-    private boolean isPetTimeNotAvailable(final Long petId, final Integer hours, final String startsAt) throws PetException, ParseException {
+    private boolean isPetTimeNotAvailable(final String petId, final Integer hours, final String startsAt) throws PetException, ParseException {
         final var pet = petService.get(petId);
         final Date actualDate = DateUtils.toDate(startsAt);
-        final List<Rent> nextRents = repository.findByStatusAndPet_Id(RentStatus.CREATED.getStatus(), pet.getId());
+        final List<Rent> nextRents = repository.findByStatusAndPet_Id(RentStatus.CREATED.getStatus(), UUID.fromString(pet.getId()));
         boolean notAvailable = false;
         if (nextRents.isEmpty()) {
             return false;
@@ -144,7 +149,7 @@ public class RentService {
         }
     }
 
-    private boolean isPetNotAvailable(final Long petId) throws PetException {
+    private boolean isPetNotAvailable(final String petId) throws PetException {
         final var pet = petService.get(petId);
         return Objects.equals(pet.getStatus(), PetAvailability.UNAVAILABLE.getAvail());
     }

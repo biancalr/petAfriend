@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -60,12 +61,11 @@ public class PetControllerTests {
     @Test
     public void getPetDetails() throws Exception {
         final PetDTO dto = getDetailedPet();
-        final String id = "2";
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final String uri = PET_API + "/get";
+        dto.setId(id);
 
-        dto.setId(Long.parseLong(id));
-
-        BDDMockito.given(controller.get(Long.parseLong(id))).willReturn(ResponseEntity.ok(dto));
+        BDDMockito.given(controller.get(id)).willReturn(ResponseEntity.ok(dto));
 
         MockHttpServletRequestBuilder request =
                 MockMvcRequestBuilders.get(uri).queryParam("id", id);
@@ -87,10 +87,10 @@ public class PetControllerTests {
     @Test
     public void getPetDetailsShouldReturnPetExceptionPetNotExist() throws Exception {
 
-        final String id = "2";
+        final String id = UUID.randomUUID().toString();
         final String uri = PET_API + "/get";
 
-        BDDMockito.given(controller.get(Mockito.anyLong())).willThrow(new PetException("Pet does not exist"));
+        BDDMockito.given(controller.get(Mockito.anyString())).willThrow(new PetException("Pet does not exist"));
 
         MockHttpServletRequestBuilder request =
                 MockMvcRequestBuilders.get(uri).queryParam("id", id);
@@ -104,7 +104,7 @@ public class PetControllerTests {
     @DisplayName("Should List The Pets Based On Filter")
     @Test
     public void shouldListThePetsBasedOnFilter() throws Exception {
-        final Long id = 1L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final PetDTO petDTO = getDetailedPet();
         final String queryString = "?specie=cat&page=0&size=10&status=available";
         final String uri = PET_API + "/show";
@@ -136,7 +136,7 @@ public class PetControllerTests {
     @Test
     public void registerPetSuccessfully() throws Exception {
         final String json, uri = PET_API + "/register";
-        final Long id = 1L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final RegisterPetDTO petDTO = createNewPet();
         final RegisteredDTO savedPet = RegisteredDTO.builder()
                                                     .id(id)

@@ -27,6 +27,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,11 +59,11 @@ public class ClientControllerTests {
 
         // cenário
         final ClientDTO dto = createDetailedClient();
-        final String id = "1";
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final String uri = CLIENT_API + "/get";
-        dto.setId(Long.parseLong(id));
+        dto.setId(id);
 
-        BDDMockito.given(controller.get(Long.parseLong(id)))
+        BDDMockito.given(controller.get(id))
                 .willReturn(ResponseEntity.ok(dto));
 
         // execução
@@ -85,10 +87,10 @@ public class ClientControllerTests {
     public void getClientDetailsShouldReturnClientExceptionClientNotExist() throws Exception {
 
         // cenário
-        final String id = "2";
+        final String id = UUID.randomUUID().toString();
         final String uri = CLIENT_API + "/get";
 
-        BDDMockito.given(controller.get(Mockito.anyLong()))
+        BDDMockito.given(controller.get(Mockito.anyString()))
                 .willThrow(new ClientException("Client does not exist"));
 
         // execução
@@ -108,7 +110,7 @@ public class ClientControllerTests {
 
         // cenário
         final String json, uri = CLIENT_API + "/register";
-        final Long id = 1L;
+        final String id = "3431fe85-fb20-4e01-a10f-c159cd80fdcd";
         final RegisterClientDTO clientDTO = createNewClient();
         final RegisteredDTO savedClient = RegisteredDTO.builder()
                 .id(id)

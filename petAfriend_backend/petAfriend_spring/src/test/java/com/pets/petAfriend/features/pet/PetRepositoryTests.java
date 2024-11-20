@@ -21,10 +21,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,12 +49,10 @@ public class PetRepositoryTests {
 
         // cenário
         final Pet pet = createNewPet();
-        final Long id = 1L;
-
-        repository.saveAndFlush(pet);
+        final var saved = repository.saveAndFlush(pet);
 
         // execução
-        boolean exists = repository.existsById(id);
+        boolean exists = repository.existsById(saved.getId());
 
         // verificação
         assertThat(exists).isTrue();
@@ -69,7 +64,7 @@ public class PetRepositoryTests {
     public void returnFalseWhenPetDoesNotExists() {
 
         // cenário
-        final Long id = 1L;
+        final UUID id = UUID.randomUUID();
 
         // execução
         boolean exists = repository.existsById(id);
@@ -84,12 +79,11 @@ public class PetRepositoryTests {
     public void getPetDetails() throws PetException {
 
         // cenário
-        final Long id = 1L;
         final Pet pet = createNewPet();
-        repository.save(pet);
+        final var saved = repository.save(pet);
 
         // execução
-        final var foundPet = repository.findById(id);
+        final var foundPet = repository.findById(saved.getId());
 
         // verificação
         assertThat(foundPet.isPresent()).isTrue();

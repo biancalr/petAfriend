@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Service
@@ -36,7 +37,7 @@ public class ClientService {
         final var client = fromDTO(clientDto);
         client.setCreatedAt(new Date());
         final var saved = repository.saveAndFlush(client);
-        return new RegisteredDTO(saved.getId(), 201, "success", "Client");
+        return new RegisteredDTO(saved.getId().toString(), 201, "success", "Client");
     }
 
     private void validateInput(final RegisterClientDTO clientDto) throws ClientException {
@@ -86,17 +87,23 @@ public class ClientService {
      * @return
      * @throws ClientException
      */
-    public ClientDTO get(final Long id) throws ClientException {
-        if (!repository.existsById(id)) {
-            throw new ClientException("Client with id " + id + " not found");
+    public ClientDTO get(final String id) throws ClientException {
+        final UUID convertId;
+        try {
+            convertId = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            throw new ClientException("Invalid id " + id);
+        }
+        if (!repository.existsById(convertId)) {
+            throw new ClientException("Client with id " + convertId + " not found");
         }
 
-        return repository.findById(id).map(this::toDTO).orElseThrow(() -> new ClientException("Object not found"));
+        return repository.findById(convertId).map(this::toDTO).orElseThrow(() -> new ClientException("Object not found"));
     }
 
     private ClientDTO toDTO(final Client client) {
         return ClientDTO.builder()
-                .id(client.getId())
+                .id(client.getId().toString())
                 .username(client.getUsername())
                 .email(client.getEmail())
                 .build();
