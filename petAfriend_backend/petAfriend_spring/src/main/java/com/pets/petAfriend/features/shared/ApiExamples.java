@@ -28,8 +28,8 @@ public class ApiExamples {
     public static final String PET_REQUEST_REGISTER_DTO_SUCCESS = """
             {
                 "name":"Rabby",
-                "type": "rabbit",
-                "specie": "English Lop",
+                "specie": "rabbit",
+                "breed": "English Lop",
                 "personality": "energic"
             }""";
 

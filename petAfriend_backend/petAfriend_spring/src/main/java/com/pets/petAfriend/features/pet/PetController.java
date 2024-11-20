@@ -60,7 +60,7 @@ public class PetController {
 
     @Operation(summary = "list the pets based on filters of specie and breed")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Pets listed according to filter",
+            @ApiResponse(responseCode = "200", description = "Pets listed according to filter",
                     content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = PetDTO.class)),
                             examples = @ExampleObject(value = ApiExamples.PET_RESPONSE_LIST_PAGE_SUCESS)

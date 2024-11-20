@@ -4,19 +4,22 @@ import com.pets.petAfriend.features.client.Client;
 import com.pets.petAfriend.features.pet.Pet;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "RENT")
 public class Rent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID id;
     @Column(name = "HOURS")
     private Integer hours;
