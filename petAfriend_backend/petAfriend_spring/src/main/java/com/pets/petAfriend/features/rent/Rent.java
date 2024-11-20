@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Rent {
 
     @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
+    @UuidGenerator
     private UUID id;
     @Column(name = "HOURS")
     private Integer hours;

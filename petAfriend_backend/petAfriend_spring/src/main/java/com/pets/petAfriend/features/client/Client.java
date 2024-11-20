@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Client {
 
     @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
+    @UuidGenerator
     private UUID id;
     @Column(name = "USERNAME")
     private String username;

@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Pet {
 
     @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
+    @UuidGenerator
     private UUID id;
     @Column(name = "NAME")
     private String name;
